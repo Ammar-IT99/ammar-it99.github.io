@@ -15,7 +15,8 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif, Arial;
             line-height: 1.6;
             color: #333;
-            background: #f4f4f4;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
         }
         
         header {
@@ -24,16 +25,74 @@
             padding: 60px 20px;
             text-align: center;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* أنيميشن الخلفية */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .animated-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            opacity: 0.1;
+            font-size: 80px;
+            overflow: hidden;
+        }
+        
+        .tech-icon {
+            animation: float 6s ease-in-out infinite;
+            display: inline-block;
+            margin: 20px;
         }
         
         header h1 {
             font-size: 2.5em;
             margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
         
         header p {
             font-size: 1.2em;
             margin-bottom: 5px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* صورة الملف الشخصي */
+        .profile-section {
+            position: relative;
+            z-index: 1;
+            margin-top: 20px;
+        }
+        
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 5px solid white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.3);
+            object-fit: cover;
+            animation: slideDown 0.8s ease;
+        }
+        
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
         .container {
@@ -43,11 +102,12 @@
         }
         
         nav {
-            background: #333;
+            background: rgba(0,0,0,0.2);
             padding: 10px 0;
             position: sticky;
             top: 0;
             z-index: 100;
+            backdrop-filter: blur(10px);
         }
         
         nav ul {
@@ -66,15 +126,28 @@
         }
         
         nav a:hover {
-            background: #667eea;
+            background: rgba(255,255,255,0.2);
+            border-radius: 5px;
         }
         
         section {
             background: white;
             margin: 30px 0;
             padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            animation: fadeIn 0.6s ease;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
         h2 {
@@ -103,16 +176,42 @@
             color: white;
             padding: 20px;
             border-radius: 8px;
-            transition: transform 0.3s;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.3s;
         }
         
         .service-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(102, 126, 234, 0.4);
+        }
+        
+        .service-card:hover::before {
+            opacity: 1;
         }
         
         .service-card h4 {
             font-size: 1.3em;
             margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .service-card p {
+            position: relative;
+            z-index: 1;
         }
         
         .skills-grid {
@@ -123,10 +222,15 @@
         }
         
         .skill-item {
-            background: #f0f0f0;
+            background: linear-gradient(135deg, #f0f4ff 0%, #f8f5ff 100%);
             padding: 15px;
-            border-radius: 5px;
+            border-radius: 8px;
             border-left: 4px solid #667eea;
+            transition: transform 0.3s;
+        }
+        
+        .skill-item:hover {
+            transform: translateX(-5px);
         }
         
         .skill-item h4 {
@@ -144,7 +248,8 @@
             color: white;
             text-align: center;
             padding: 40px !important;
-            border-radius: 8px !important;
+            border-radius: 12px !important;
+            box-shadow: 0 12px 24px rgba(102, 126, 234, 0.3) !important;
         }
         
         .contact-info {
@@ -157,7 +262,13 @@
         .contact-item {
             padding: 20px;
             background: rgba(255,255,255,0.1);
-            border-radius: 5px;
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s;
+        }
+        
+        .contact-item:hover {
+            transform: scale(1.05);
         }
         
         .contact-item h4 {
@@ -165,23 +276,29 @@
         }
         
         button {
-            background: #667eea;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             padding: 12px 30px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             font-size: 1em;
-            transition: background 0.3s;
+            transition: all 0.3s;
             margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
         }
         
         button:hover {
-            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+        
+        button:active {
+            transform: translateY(0);
         }
         
         footer {
-            background: #333;
+            background: rgba(0,0,0,0.5);
             color: white;
             text-align: center;
             padding: 20px;
@@ -195,25 +312,48 @@
         
         .badge {
             display: inline-block;
-            background: #667eea;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             padding: 5px 10px;
             border-radius: 20px;
             margin: 5px 5px 5px 0;
             font-size: 0.9em;
+            animation: slideUp 0.5s ease;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
         .experience-item {
-            background: #f0f0f0;
+            background: linear-gradient(135deg, #f0f4ff 0%, #f8f5ff 100%);
             padding: 15px;
             margin: 10px 0;
-            border-radius: 5px;
+            border-radius: 8px;
             border-right: 4px solid #667eea;
+            transition: all 0.3s;
+        }
+        
+        .experience-item:hover {
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+            transform: translateX(5px);
         }
         
         @media (max-width: 768px) {
             header h1 {
                 font-size: 1.8em;
+            }
+            
+            .profile-img {
+                width: 120px;
+                height: 120px;
             }
             
             nav ul {
@@ -227,14 +367,33 @@
             .services-grid {
                 grid-template-columns: 1fr;
             }
+            
+            .animated-bg {
+                font-size: 40px;
+            }
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>🚀 عمار حسين</h1>
-        <p>متخصص تقنية المعلومات | IT Specialist</p>
-        <p style="font-size: 0.9em; margin-top: 15px;">تركيب الأنظمة • تطوير التطبيقات • الدعم الفني 24/7</p>
+        <div class="animated-bg">
+            <span class="tech-icon">💻</span>
+            <span class="tech-icon">📷</span>
+            <span class="tech-icon">🔒</span>
+            <span class="tech-icon">📱</span>
+            <span class="tech-icon">🌐</span>
+            <span class="tech-icon">⚙️</span>
+        </div>
+        
+        <div>
+            <h1>عمار حسين</h1>
+            <p>متخصص تقنية المعلومات | IT Specialist</p>
+            <p style="font-size: 0.9em; margin-top: 15px;">تركيب الأنظمة • تطوير التطبيقات • الدعم الفني 24/7</p>
+            
+            <div class="profile-section">
+                <img src="profile.jpg" alt="عمار حسين" class="profile-img">
+            </div>
+        </div>
     </header>
     
     <nav>
